@@ -14,7 +14,7 @@ import Home from './Home/Home'
 import Address from './Address/Address'
 import Mine from './Mine/Mine'
 
-
+import ForGetPass from './Login/ForGetPass'
 
 const Main = createBottomTabNavigator({
   //每一个页面的配置
@@ -124,12 +124,21 @@ export default function configAppcrearNavigator(isLoggedIn) {
         header: null,
       }
     },
+    ForGetPass: {
+      screen: ForGetPass,
+      navigationOptions: {
+        headerTitle:'找回登录密码',
+        headerBackTitle: null
+      }
+    },
   },
     {
     //   initialRouteName: isLoggedIn == 2 ? 'Guide' : isLoggedIn ? 'Main' : 'Main',
       initialRouteName: 'Login',
       navigationOptions: ({ navigation, screenProps }) => ({
         gesturesEnabled: false,
+        headerStyle:{backgroundColor:'#01aef0'},
+        headerTitleStyle:{color:'white'}
         // headerTitle: (() => {
         //   console.log('routeNamerouteName', navigation)
         //   var arr = navigation.state.routes;
@@ -137,13 +146,13 @@ export default function configAppcrearNavigator(isLoggedIn) {
         //   var routeName = arr[index].routeName
 
         //   var titleName = routeName;
-        //   if (routeName === 'Home') {
-        //     titleName = '首页'
-        //   }else if(routeName == 'Reimbursement'){
-        //     titleName = '报账'
-        //   }else if(routeName == 'Ticket'){
-        //     titleName = '票价'
-        //   }else if(routeName == 'Mine'){
+        //   if (routeName === 'Message') {
+        //     titleName = '消息'
+        //   } else if (routeName === 'Home') {
+        //     titleName = '工作'
+        //   } else if (routeName === 'Address') {
+        //     titleName = '通讯录'
+        //   } else if (routeName === 'Mine') {
         //     titleName = '我的'
         //   }
         //   return <Text>{titleName}</Text>
@@ -152,29 +161,29 @@ export default function configAppcrearNavigator(isLoggedIn) {
         // headerLeft: (() => {
         //   var routeName = navigation.state.routeName;
 
-        //   if (routeName === 'Main') {
-        //     return null;
-        //   } else {
+          // if (routeName === 'Main') {
+          //   return null;
+          // } else {
 
-        //     return (
-        //       <TouchableOpacity style={{
-        //         position: 'absolute', left: 10, bottom: 0,
-        //         width: 44, height: 44, flexDirection: 'column-reverse', paddingBottom: 10
-        //       }}
-        //         onPress={() => {
-        //           let { state: { routes } } = navigation;
-        //           console.log('RealNameIdentification navigation', navigation)
-        //           console.log('routes', routes);
-        //           navigation.goBack()
-        //         }}
-        //       >
-        //         <Image
-        //           style={{ width: 11, height: 18 }}
-        //           source={{ uri: '7copy' }}
-        //         />
-        //       </TouchableOpacity>
-        //     );
-        //   }
+          //   return (
+          //     <TouchableOpacity style={{
+          //       position: 'absolute', left: 10, bottom: 0,
+          //       width: 44, height: 44, flexDirection: 'column-reverse', paddingBottom: 10
+          //     }}
+          //       onPress={() => {
+          //         let { state: { routes } } = navigation;
+          //         console.log('RealNameIdentification navigation', navigation)
+          //         console.log('routes', routes);
+          //         navigation.goBack()
+          //       }}
+          //     >
+          //       <Image
+          //         style={{ width: 11, height: 18 }}
+          //         source={{ uri: '7copy' }}
+          //       />
+          //     </TouchableOpacity>
+          //   );
+          // }
         // }),
       })
 

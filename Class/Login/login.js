@@ -62,7 +62,7 @@ export default class login extends BaseComponent {
                 />
                  <TouchableOpacity style={{justifyContent: 'center', alignItems: 'center', width: 100, height: 44
                     }}
-                    onPress={this.login.bind(this)}
+                    onPress={this.ForgetPass.bind(this)}
                   >
                       <Text style={{ color: '#01aef0', fontSize: 14}}>登录密码忘了？</Text>
                   </TouchableOpacity>
@@ -76,14 +76,14 @@ export default class login extends BaseComponent {
             </TouchableOpacity>
             <TouchableOpacity style={{marginTop:50,alignSelf:'center',justifyContent: 'center', alignItems: 'center', width: 120, height: 30,borderRadius:5,borderColor:'#01aef0',borderWidth:1
             }}
-              onPress={this.login.bind(this)}
+              onPress={this.AccountActivation.bind(this)}
             >
                  <Text style={{ color: '#01aef0', fontSize: 16}}>账户激活</Text>
             </TouchableOpacity>
             <Text style={{marginLeft:50,marginTop:50,fontSize:16}}>公司未开通账户？</Text>
             <TouchableOpacity style={{marginLeft:SCREEN_WIDTH - 150,marginTop:50,justifyContent: 'center', alignItems: 'center', width: 120, height: 30,borderRadius:5
             }}
-              onPress={this.login.bind(this)}
+              onPress={this.ApplicationExperience.bind(this)}
             >
                  <Text style={{ color: '#01aef0', fontSize: 16}}>点此申请体验></Text>
             </TouchableOpacity>
@@ -94,6 +94,20 @@ export default class login extends BaseComponent {
   login(){
     navigationUtil.reset(this.props.navigation, 'Main');
   }
+  //忘记密码
+  ForgetPass(){
+    this.props.navigation.navigate('ForGetPass');
+  }
+  //账户激活
+  AccountActivation(){
+
+
+  }
+  //申请体验
+  ApplicationExperience(){
+
+  }
+  
   renderHeaderView() {
     return <View style={{
       backgroundColor: '#01aef0', flexDirection: 'column-reverse', height: 88, alignItems: 'center',
