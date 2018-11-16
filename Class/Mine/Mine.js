@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import BaseComponent from '../BaseComponent'
-import navigationUtil from '../navigation'
+import navigationUtil from '../Other/navigation'
 import {
   View, 
   StyleSheet,

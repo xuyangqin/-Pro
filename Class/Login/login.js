@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import BaseComponent from '../BaseComponent'
-import navigationUtil from '../navigation'
+import navigationUtil from '../Other/navigation'
+import {getDeployUrl,requestsUrl} from '../Other/Request'
+import Toast from 'react-native-root-toast';
 import {
   View, StyleSheet,
   Dimensions,
@@ -17,7 +19,14 @@ var SCREEN_WIDTH = Dimensions.get('window').width;
 var SCREEN_HEIGHT = Dimensions.get('window').height;
 
 export default class login extends BaseComponent {
-   
+  constructor(props) {
+    super(props)
+    this.state = {
+      phone:'',
+      pws:'',
+      loginBtnStatue:false
+    }
+  }
   render() {
       return(
           <View style={styles.container}>
@@ -41,7 +50,19 @@ export default class login extends BaseComponent {
                   style={{ marginLeft: 10, width: 300 }}
                   keyboardType='numeric'
                   maxLength={11}
-                  // onChangeText={value => this.setState({ phone: value })}
+                  onChangeText={(value) =>{
+                    if(value > 0 && this.state.pws.length > 0){
+                      this.setState({
+                        loginBtnStatue:true,
+                        phone:value
+                      })
+                    }else{
+                      this.setState({
+                        loginBtnStatue:false,
+                        phone:value
+                      })
+                    }  
+                  }}
                 />
             </View>
             <View style={{
@@ -57,7 +78,19 @@ export default class login extends BaseComponent {
                   underlineColorAndroid='transparent'
                   placeholder='请输入登录密码'
                   style={{marginLeft: 10, marginLeft: 10, width: 210 }}
-                  // onChangeText={value => this.setState({ password: value })}
+                  onChangeText={value => {
+                    if(value > 0 && this.state.phone.length > 0){
+                      this.setState({
+                        loginBtnStatue:true,
+                        pws:value
+                      })
+                    }else{
+                      this.setState({
+                        loginBtnStatue:false,
+                        pws:value
+                      })
+                    }  
+                  }}
                   secureTextEntry={true}
                 />
                  <TouchableOpacity style={{justifyContent: 'center', alignItems: 'center', width: 100, height: 44
@@ -68,7 +101,7 @@ export default class login extends BaseComponent {
                   </TouchableOpacity>
             </View>
             <TouchableOpacity style={{marginTop:30,alignSelf:'center',justifyContent: 'center', alignItems: 'center', width: SCREEN_WIDTH - 20,
-              backgroundColor: 'gray', height: 40,borderRadius:5
+              backgroundColor: this.state.loginBtnStatue ? '#01aef0' : 'gray', height: 40,borderRadius:5
             }}
               onPress={this.login.bind(this)}
             >
@@ -92,7 +125,54 @@ export default class login extends BaseComponent {
   }
   //点击登录
   login(){
-    navigationUtil.reset(this.props.navigation, 'Main');
+    const { phone, pws} = this.state;
+     
+    if (phone.length == 0) {
+      alert('请输入手机号')
+      return null;
+    }
+    if (pws.length == 0) {
+      alert('请输入登录密码')
+      return null;
+    }
+
+    var url = 'AppService/AppGetDeployUrl.aspx';
+    getDeployUrl({
+      method: 'GET',
+      url: url,
+      mobile_phone:phone,
+      pws:pws
+    })
+      .then((responseJson) => {
+        if(responseJson.server_status == 'true'){
+              var url2 = 'api/Account/LoginAccount';
+              var param1 = {uid:phone,pws:pws,activeUid:'1D11CC76-BDB0-4304-918C-3338219A2466',Language:'zh-CN'};
+              var param2 = {};
+              requestsUrl({
+                method: 'POST',
+                url: url2,
+                data:{Head:param1,Content:param2}
+              })
+                .then((responseJson) => {
+                  if(responseJson.Head.Ret == '0'){
+                     navigationUtil.reset(this.props.navigation, 'Main');
+                  }{
+                    if(responseJson.Head.Msg != null){
+                      resolve(responseJson.Head.Msg);
+                    }else{
+                       alert('网络错误')
+                    }
+                  }
+              })
+              .catch(err => {
+                return null
+              });
+        }
+    })
+    .catch(err => {
+      // alert（'错误提示：' + err);
+      return null
+    });
   }
   //忘记密码
   ForgetPass(){

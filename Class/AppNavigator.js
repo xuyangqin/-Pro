@@ -138,7 +138,7 @@ export default function configAppcrearNavigator(isLoggedIn) {
       navigationOptions: ({ navigation, screenProps }) => ({
         gesturesEnabled: false,
         headerStyle:{backgroundColor:'#01aef0'},
-        headerTitleStyle:{color:'white'}
+        headerTitleStyle:{color:'white'},
         // headerTitle: (() => {
         //   console.log('routeNamerouteName', navigation)
         //   var arr = navigation.state.routes;
@@ -158,33 +158,32 @@ export default function configAppcrearNavigator(isLoggedIn) {
         //   return <Text>{titleName}</Text>
         // }),
 
-        // headerLeft: (() => {
-        //   var routeName = navigation.state.routeName;
+        headerLeft: (() => {
+          var routeName = navigation.state.routeName;
 
-          // if (routeName === 'Main') {
-          //   return null;
-          // } else {
-
-          //   return (
-          //     <TouchableOpacity style={{
-          //       position: 'absolute', left: 10, bottom: 0,
-          //       width: 44, height: 44, flexDirection: 'column-reverse', paddingBottom: 10
-          //     }}
-          //       onPress={() => {
-          //         let { state: { routes } } = navigation;
-          //         console.log('RealNameIdentification navigation', navigation)
-          //         console.log('routes', routes);
-          //         navigation.goBack()
-          //       }}
-          //     >
-          //       <Image
-          //         style={{ width: 11, height: 18 }}
-          //         source={{ uri: '7copy' }}
-          //       />
-          //     </TouchableOpacity>
-          //   );
-          // }
-        // }),
+          if (routeName === 'Main') {
+            return null;
+          } else {
+            return (
+              <TouchableOpacity style={{
+                position: 'absolute', left: 10, bottom: 0,
+                width: 44, height: 44, flexDirection: 'column-reverse', paddingBottom: 10
+              }}
+                onPress={() => {
+                  let { state: { routes } } = navigation;
+                  console.log('RealNameIdentification navigation', navigation)
+                  console.log('routes', routes);
+                  navigation.goBack()
+                }}
+              >
+                <Image
+                  style={{ width: 11, height: 18 }}
+                  source={require('./Images/导航栏切图/topback-白.png')}
+                />
+              </TouchableOpacity>
+            );
+          }
+        }),
       })
 
     },
