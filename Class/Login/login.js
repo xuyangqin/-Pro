@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 import BaseComponent from '../BaseComponent'
 import navigationUtil from '../Other/navigation'
 import {getDeployUrl,requestsUrl} from '../Other/Request'
-import Toast from 'react-native-root-toast';
+import { saveToken, saveUserInfo} from '../Other/storage';
 import {
   View, StyleSheet,
   Dimensions,
   TouchableOpacity,
-  ScrollView,
+  TextInput,
   Text,
   Image,
   WebView,
   Platform,
-  TextInput
+  ScrollView,
 
 } from 'react-native';
 var SCREEN_WIDTH = Dimensions.get('window').width;
@@ -155,10 +155,13 @@ export default class login extends BaseComponent {
               })
                 .then((responseJson) => {
                   if(responseJson.Head.Ret == '0'){
+                    //  saveToken(data);
+                    //  var info = { data: { LegalUnitID: responseJson.Content.EmployeeInfo.LegalUnitID} };
+                    //  saveUserInfo(info);
                      navigationUtil.reset(this.props.navigation, 'Main');
                   }{
                     if(responseJson.Head.Msg != null){
-                      resolve(responseJson.Head.Msg);
+                       alert(responseJson.Head.Msg);
                     }else{
                        alert('网络错误')
                     }
@@ -188,6 +191,7 @@ export default class login extends BaseComponent {
 
   }
   
+  //头部试图
   renderHeaderView() {
     return <View style={{
       backgroundColor: '#01aef0', flexDirection: 'column-reverse', height: 88, alignItems: 'center',

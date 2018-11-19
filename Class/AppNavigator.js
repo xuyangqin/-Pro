@@ -134,7 +134,7 @@ export default function configAppcrearNavigator(isLoggedIn) {
   },
     {
     //   initialRouteName: isLoggedIn == 2 ? 'Guide' : isLoggedIn ? 'Main' : 'Main',
-      initialRouteName: 'Login',
+      initialRouteName: 'Main',
       navigationOptions: ({ navigation, screenProps }) => ({
         gesturesEnabled: false,
         headerStyle:{backgroundColor:'#01aef0'},

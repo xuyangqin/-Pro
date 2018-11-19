@@ -86,7 +86,38 @@ export function requestsUrl({ url, method,data}) {
       });
   });
 }
+export function requestsBaseUrl({ url, method,data}) {
 
+  url = BASE_URL + url;
+  
+  var param = {uid:'17778790005',pws:'123456',activeUid:'1D11CC76-BDB0-4304-918C-3338219A2466',LegalUnitID:'000007',Language:'zh-CN',Version:'3.0.2'}
+
+  var paras = {Head:param,Content:data}
+
+  return new Promise((resolve, reject) => {
+    fetch(url,{
+        method:method,
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(paras)
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+
+        if(responseJson.Head.Code == '3030' || responseJson.Head.Code == '203'){
+          console.log('token失效');
+           return null;
+        }
+        resolve(responseJson);
+          
+      })
+      .catch((err) => {
+        reject(err)
+      });
+  });
+}
 // export function requestWithToken(options) {
 //   return storage.load({ key: 'accessToken' })
 //     .then(result => request({ ...options, access_token: result }));
